@@ -1,0 +1,178 @@
+
+.register{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.register-frame{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    width: 720px;
+    height: 495px;
+    padding: 10px;
+    border: 1px #DADCE0 solid;
+    border-radius: 10px;
+}
+.fundoo
+{
+    font-size: x-large;
+    font-weight: 640;
+    line-height: 1.5;
+    display: flex;
+    align-content: flex-start;
+    margin: 20px 30px 15px 30px;
+}
+.fundoo-account{
+    margin-bottom: 30px;
+    font-size: x-large;
+    font-family: 'Google Sans',arial,sans-serif;
+    display: flex;
+    align-content: flex-start;
+}
+.input-body{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+.input-info{
+    display:flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    flex-basis: 65%;
+    padding: 0px 0px 0px 30px;
+
+}
+.logo{
+    display: flex;
+    margin-left: 20px;
+    /* border: 1px solid black; */
+    flex-basis: 35%;
+}
+.name{
+     /* border: 1px solid black; */
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.input-name{
+    width: 200px;
+}
+.f-name{
+    display: flex;
+    padding: 5px;
+    flex-direction: column;
+}
+.email{
+    width: 100%;
+}
+.email-div{
+    margin-top: 20px;
+    display: block;
+}
+.email-text{
+    display: flex;
+    align-items: flex-start;
+    font-size: small;
+    font-weight: 300;
+    margin-top: 8px;
+    margin-left: 7px;
+    text-align: start;
+}
+.email-text1{
+    font-size: small;
+    font-weight: 300;
+    margin-top: 10px;
+}
+.passhelper{
+    margin-top: 15px;
+}
+.currentbtn{
+    margin-top: 8px;
+}
+.password{
+    margin-top: 20px;
+}
+.password-text{
+    display: flex;
+    align-items: flex-start;
+}
+.logo{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 30px;
+}
+img{
+    width: 240px;
+}
+.account-text{
+    font-size: 16px;
+    color: grey;
+    text-align: center;
+}
+.direction-div{
+    margin-top: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.next{
+    width: 80px;
+    height: 33px;
+    border-radius: 5px;
+    border: none;
+    background: #1A73E8;
+    font-size: medium;
+    color: white;
+    font-weight: 300;
+    outline: none;
+}
+.signin{
+    font-size: medium;
+    font-weight: 600;
+    color: #4B82E9;
+    cursor: pointer;
+}
+.cadd{
+    justify-content: flex-start;
+    font-size: medium;
+    font-weight: 600;
+    color: #4B82E9;
+    cursor: pointer;
+    /* margin-left: -70px; */
+}
+.next:hover{
+    background-color: #0d64ce;
+}
+@media(max-width:730px){
+    .logo{
+        display: none;
+        flex-basis: 0%;
+    }
+    .input-info{
+        flex-basis: 100%;
+        padding: 0px 30px 0px 30px;
+    }
+    .register-frame{
+        width: 90%;
+        height: auto;
+    }
+    .name{
+        height: 134px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .input-name{
+        width: auto;
+    }
+}
+@media(max-width:410px){
+    .fundoo{
+        display: block;
+    }
+}
