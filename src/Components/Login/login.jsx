@@ -3,10 +3,11 @@ import React,{Component} from "react";
 import '../Login/login.css';
 import { Link } from "react-router-dom";
 import utility from "../Utility/utility";
+import UserService from "../../services/userService";
 
 
-const regemail=/^([a-z]+[0-9a-z-!$%+&_.]*){3,15}@[a-z0-9]{1,8}[.]*([a-z]{2,4})*.[a-z]{2,4}$'/;
-const regpass=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/;
+const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const regpass=/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
 
 
 
@@ -21,25 +22,54 @@ class Login extends Component {
             passworderror:""
         }
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
+        // this.handleChangePassword = this.handleChangePassword.bind(this);
+        //this.onClick = this.onClick(this)
     }
     handleChangeEmail(event){
-        this.setState({ email: event.target.value }) 
-        if(utility.checkRegex(event,regemail)){
-          this.setState({emailerror:""})
-        }  
-        else{
-          this.setState({emailerror:"enter valid email"})
-        }
+      this.setState({ email: event })
+      var response = utility.checkEmail(this.state.email, emailRegex) 
+      console.log(response, "response log")
+      if(utility.checkEmail(event,emailRegex)){
+        this.setState({emailerror:""})
+        return true;
+      }  
+      else{
+        this.setState({emailerror:"enter valid email"})
+        return false;
       }
-      handleChangePassword(event){
-        this.setState({ password: event.target.value }) 
-        if(utility.checkRegex(event,regpass)){
-          this.setState({passworderror:""})
-        }  
-        else{
-          this.setState({passworderror:"enter valid password"})
-        }
+    }
+    handleChangePassword(event){
+      this.setState({ password: event }) 
+      var res = utility.checkPass(this.state.password,regpass)
+      console.log("response log",res)
+      if(utility.checkPass(event,regpass)){
+        this.setState({passworderror:""})
+        return true;
+      }  
+      else{
+        this.setState({passworderror:"enter valid password"})
+        return false;
+      }
+    }
+      onSubmitClick =() => {
+          const userData ={
+            "email":this.state.email,
+            "password":this.state.password
+          }
+      //  new UserService().login(userData).then((data)=>{
+      //       console.log('data',data);
+      //       localStorage.setItem('token',data)
+      //   }).catch(error => {})
+         if(this.handleChangeEmail(this.state.email) || this.handleChangePassword(this.state.password)){
+            console.log("login succesful")
+           new UserService().login(userData).then((data)=>{
+                console.log('data',data);
+                localStorage.setItem('token',data)
+            }).catch(error => {})
+         }
+         else{
+             console.log("login unsuccessful")
+         }
       }
     render() { 
         return ( 
@@ -60,18 +90,25 @@ class Login extends Component {
                         Use your Fundoo Account
                     </span>
                     <div>
-                        <TextField value={this.state.email} size="small" className="input" label="Email" placeholder="Email or Phone" variant="outlined" onChange={this.handleChangeEmail} helperText={this.state.emailerror} error={this.state.emailerror}></TextField>
-                        <TextField  size="small" value={this.state.password} className="input" label="Password" placeholder="Password" variant="outlined" onChange={this.handleChangePassword} helperText={this.state.passworderror} error={this.state.passworderror}></TextField>
+                        <TextField value={this.state.email} 
+                        size="small" className="input" label="Email" 
+                        placeholder="Email or Phone" variant="outlined" 
+                        onChange={(event)=>this.handleChangeEmail(event.target.value)} helperText={this.state.emailerror} 
+                        error={this.state.emailerror}></TextField>
+                        <TextField  size="small" value={this.state.password} className="input" label="Password" 
+                        placeholder="Password" variant="outlined" onChange={(event)=> this.handleChangePassword(event.target.value)} 
+                        helperText={this.state.passworderror} error={this.state.passworderror}></TextField>
                     </div>
                     <div className="btn-text">
-                        <p className="help-text">Not your computer? Use guest mode to sign in privately.</p>
+                        <p className="help-text">Not your computer? Use guest mode to sign in privately.<br></br>
+                        <a href className="learn-more">Learn More!</a></p>
                     </div>
                     <Link to="/register">
                         <div className="create-account">
                             Create account
                         </div>
                     </Link>
-                    <button className="login">Login</button>
+                    <button className="login" onClick={ ()=> this.onSubmitClick()}>Login</button>
                 </div>
             </div>
          );

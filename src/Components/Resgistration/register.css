@@ -25,7 +25,7 @@
 }
 .fundoo-account{
     margin-bottom: 30px;
-    font-size: x-large;
+    font-size: large;
     font-family: 'Google Sans',arial,sans-serif;
     display: flex;
     align-content: flex-start;
@@ -136,15 +136,16 @@ img{
     font-weight: 600;
     color: #4B82E9;
     cursor: pointer;
+    outline: none;
 }
-.cadd{
+/* .cadd{
     justify-content: flex-start;
     font-size: medium;
     font-weight: 600;
     color: #4B82E9;
     cursor: pointer;
-    /* margin-left: -70px; */
-}
+    margin-left: -70px; 
+} */
 .next:hover{
     background-color: #0d64ce;
 }

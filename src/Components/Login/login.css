@@ -54,6 +54,8 @@
     color: #e7eaee;
     background-color: #1A73E8;
     outline: none;
+    cursor: pointer;
+
 }
 .error-msg-login{
     font-size: 12px;
@@ -69,7 +71,14 @@
 .btn-text{
     justify-content: flex-start;
     align-items: flex-start;
-    display: block;
+    display: inline-block;
+    text-align: left;
+}
+.learn-more{
+    margin-bottom: 10%;
+    color: #0d64ce;
+    text-underline-offset: none;
+    cursor: pointer;
 }
 .help-text{
     font-size: small;

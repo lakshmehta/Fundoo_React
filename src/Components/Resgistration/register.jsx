@@ -1,13 +1,14 @@
 import { TextField } from "@material-ui/core";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import UserService from "../../services/userService";
 import "../Resgistration/register.css";
 import utility from "../Utility/utility";
 
 const regF = /^[A-Z]{1}[a-z]{2}[a-z]*$/;
 const regl=/^[A-Z]+[a-zA-Z]{2,}$/;
-const regemail=/^([a-z]+[0-9a-z-!$%+&_.]*){3,15}@[a-z0-9]{1,8}[.]*([a-z]{2,4})*.[a-z]{2,4}$'/;
-const regpass=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$/;
+const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const regpass=/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
 
 
 class Register extends Component {
@@ -29,11 +30,10 @@ class Register extends Component {
      this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
      this.handleChangeEmail = this.handleChangeEmail.bind(this);
      this.handleChangePassword = this.handleChangePassword.bind(this);
-     this.handleChangeConfirmPassword=this.handleChangeConfirmPassword(this);
-
+     this.handleChangeConfirmPassword=this.handleChangeConfirmPassword.bind(this);
   }
   handleChangeFirstName(event){
-    this.setState({ firstname: event.target.value }) 
+    this.setState({ firstname: event }) 
     if(utility.checkRegex(event,regF)){
       this.setState({firstnameerror:""})
     }  
@@ -42,7 +42,7 @@ class Register extends Component {
     }
   }
   handleChangeLastName(event){
-    this.setState({ lastname: event.target.value }) 
+    this.setState({ lastname: event }) 
     if(utility.checkRegex(event,regl)){
       this.setState({lastnameerror:""})
     }  
@@ -51,8 +51,10 @@ class Register extends Component {
     }
   }
   handleChangeEmail(event){
-    this.setState({ email: event.target.value }) 
-    if(utility.checkRegex(event,regemail)){
+    this.setState({ email: event })
+    var response = utility.checkEmail(this.state.email, emailRegex) 
+    console.log(response, "response log")
+    if(utility.checkEmail(event,emailRegex)){
       this.setState({emailerror:""})
     }  
     else{
@@ -60,8 +62,10 @@ class Register extends Component {
     }
   }
   handleChangePassword(event){
-    this.setState({ password: event.target.value }) 
-    if(utility.checkRegex(event,regpass)){
+    this.setState({ password: event }) 
+    var res = utility.checkPass(this.state.password,regpass)
+    console.log("response log",res)
+    if(utility.checkPass(event,regpass)){
       this.setState({passworderror:""})
     }  
     else{
@@ -69,12 +73,38 @@ class Register extends Component {
     }
   }
   handleChangeConfirmPassword(event){
-    this.setState({ confirmpassword: event.target.value }) 
-    if(utility.checkRegex(event,regpass)){
+    this.setState({ confirmpassword: event }) 
+    var res = utility.checkPass(this.state.confirmpassword,regpass)
+    console.log("response log",res)
+    if(utility.checkPass(event,regpass)){
       this.setState({confirmpassworderror:""})
     }  
     else{
       this.setState({confirmpassworderror:"password did not match"})
+    }
+  }
+  onSubmit = () =>{
+    if(this.handleChangeFirstName(this.state.firstname) || this.handleChangeLastName(this.state.lastname)
+     || this.handleChangeEmail(this.state.email) || this.handleChangePassword(this.state.password)){
+      let data ={
+        "firstname": this.state.firstname,
+        "lastname": this.state.lastname,
+        "email": this.state.email,
+        "password": this.state.password,
+        service : "advance", 
+      };
+      new UserService().register(data).then((response)  => {
+        if(response.status === 400){
+          console.log("user already registered")
+        }else{
+          console.log(response.data);
+        }
+      })
+      .catch((error)=>{
+        console.log("Registration Failed")
+      })
+    }else{
+      console.log("All fields are required")
     }
   }
   render() {
@@ -103,7 +133,7 @@ class Register extends Component {
                       label="First Name"
                       placeholder="First Name"
                       variant="outlined"
-                      onChange={this.handleChangeFirstName}
+                      onChange={(event)=>this.handleChangeFirstName(event.target.value)}
                       helperText={this.state.firstnameerror}
                       error={this.state.firstnameerror.length>0}
                     />
@@ -116,7 +146,7 @@ class Register extends Component {
                       label="Last Name"
                       placeholder="Last Name"
                       variant="outlined"
-                      onChange={this.handleChangeLastName}
+                      onChange={(event)=>this.handleChangeLastName(event.target.value)}
                       helperText={this.state.lastnameerror}
                       error={this.state.lastnameerror.length>0}
                     />
@@ -131,7 +161,7 @@ class Register extends Component {
                       label="Email"
                       placeholder="abc@example.com"
                       variant="outlined"
-                      onChange={this.handleChangeEmail}
+                      onChange={(event)=>this.handleChangeEmail(event.target.value)}
                       helperText={this.state.emailerror}
                       error={this.state.emailerror}
                     />
@@ -151,7 +181,7 @@ class Register extends Component {
                       type="password"
                       placeholder="Password"
                       variant="outlined"
-                      onChange={this.handleChangePassword}
+                      onChange={(event)=>this.handleChangePassword(event.target.value)}
                       error={this.state.passworderror}
                       helperText={this.state.passworderror.length>0}
                     />
@@ -165,7 +195,7 @@ class Register extends Component {
                       placeholder="Confirm Password"
                       type="password"
                       variant="outlined"
-                      onChange={this.handleChangeConfirmPassword}
+                      onChange={(event) => this.handleChangeConfirmPassword(event.target.value)}
                       error={this.state.confirmpassworderror}
                       helperText={this.state.confirmpassworderror}
                     />
@@ -178,8 +208,12 @@ class Register extends Component {
                 </span>
                 </div>
                 <div className="direction-div">
-                <Link to="/"><div className="signin">Sign in instead</div></Link>
-                  <button  className="next">
+                <Link to="/">
+                    <div className="signin">
+                        Sign in instead
+                    </div>
+                </Link>
+                  <button  className="next" onClick={this.onSubmit}>
                     Next
                   </button>
                 </div>

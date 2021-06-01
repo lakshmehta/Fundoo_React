@@ -1,0 +1,56 @@
+.grow{
+    flex-grow: 1;
+}
+.AppBar{
+    background-color: #fff;
+    white-space: nowrap;
+}
+.Iconpng{
+    width: 40px;
+    height: 40px;
+}
+.search{
+    position: relative;
+    border-radius: 7px;
+    color: #5f6368;
+    background-color: rgba(0,0,0,.2);;
+    width: 40%;
+    height: 46px;
+    justify-content: center;
+    margin-left: 20%;
+}
+.searchIcon{
+    padding: 0 2px;
+    height:100%;
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.inputInput{
+    padding: 1px 1px 1px 0;
+    position: absolute;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-left: 3em;
+    color: black;
+}
+.gb_5d {
+    display: inline-block;
+    font-family: 'Product Sans',Arial,sans-serif;
+    font-size: 22px;
+    line-height: 24px;
+    padding-left: 8px;
+    position: relative;
+    top: -1.5px;
+    vertical-align: middle;
+    color: #5F6368;
+    opacity: 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+}
