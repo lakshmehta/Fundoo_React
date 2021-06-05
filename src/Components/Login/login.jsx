@@ -7,7 +7,7 @@ import UserService from "../../services/userService";
 
 
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-const regpass=/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
+const regpass=/^(?=.*\d)(?=.*[a-z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
 
 
 
@@ -63,8 +63,8 @@ class Login extends Component {
          if(this.handleChangeEmail(this.state.email) || this.handleChangePassword(this.state.password)){
             console.log("login succesful")
            new UserService().login(userData).then((data)=>{
-                console.log('data',data);
-                localStorage.setItem('token',data)
+                console.log('data',data.data.id);
+                localStorage.setItem('token',data.data.id)
             }).catch(error => {})
          }
          else{

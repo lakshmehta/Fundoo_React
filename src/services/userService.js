@@ -1,5 +1,5 @@
 import { baseUrl } from './environment'
-import  axios_service  from './axiosService';
+import  {axios_service}  from './axiosService';
 
 
 
@@ -10,10 +10,39 @@ export default class UserService{
         
     login(data){
         let url = baseUrl+'user/login';
-        return this.axios_service.post(url,data)
+        const headers={
+            "content-type": "application/json",
+            Authorization: localStorage.getItem('token')
+        }
+        return this.axios_service.post(url,data,headers)
+
     }
     register(data){
         let url = baseUrl+ 'user/userSignUp';
-        return axios_service.post(url,data);
+        const headers={
+            "content-type": "application/json",
+            Authorization: localStorage.getItem('token',)
+        }
+        return this.axios_service.post(url,data,headers);
+    }
+    addNote(data){
+        let url =  baseUrl+'notes/addNotes';
+        const headers={
+            "content-type": "application/json",
+            Authorization: localStorage.getItem('token')
+        }
+        return this.axios_service.post(url,data,headers);
+    }
+    getAllNotes(){
+        let url = baseUrl+'notes/getNotesList';
+        return this.axios_service.get(url);
+    }
+    updateNote(data){
+        let url = baseUrl+'notes/updateNotes';
+        const headers={
+            "Content-Type": "multipart/form-data",
+            "Token": localStorage.getItem('token')
+        }
+        return this.axios_service.post(url,data,headers)
     }
 }
