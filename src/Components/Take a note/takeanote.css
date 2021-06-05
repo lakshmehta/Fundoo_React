@@ -1,0 +1,97 @@
+.note{
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid black; */
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 5px;
+}
+.take-note{
+    display: flex;
+    flex-direction: row;
+    min-height: 46px;
+    align-items: center;
+    justify-content: space-between;
+    width: 568px;
+    margin-top: 80px;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 0px 18px;
+    font-size: inherit;
+    font-weight: 540;
+    box-shadow: 1px 2px 6px 2px rgba(0, 0, 0, 0.2);
+    cursor: text;
+}
+
+.take-note-icon{
+    width: 155px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.take-icon{
+    cursor: pointer;
+    color: gray;
+    /* width: 10px; */
+}
+.icon:hover{
+    background-color: whitesmoke;
+}
+.take-note-input{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.title-input{
+    border: none;
+    overflow: hidden;
+    outline: none;
+    width: 95%;
+    font-size: larger;
+}
+.text-input{
+    border: none;
+    overflow: hidden;
+    outline: none;
+    width: 95%;
+    margin-top: 15px;
+}
+.take-note-expand{
+    min-height: 130px;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.close{
+    cursor: pointer;
+    margin-bottom: -10px;
+}
+
+.align-icon{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.position{
+    display: inline-block;
+    align-items: flex-start;
+    /* width: 270px; */
+}
+
+@media(max-width:600px){
+    .take-note{
+        width: 100%;
+    }
+}
+.title-pin{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.pin{
+    width:25px;
+    cursor: pointer;
+}

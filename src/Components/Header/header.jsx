@@ -13,7 +13,8 @@ import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
 import AppsOutlinedIcon from '@material-ui/icons/AppsOutlined';
 import '../Header/header.css';
 import SideNav  from '../SideNav/sideNav';
-import KeepIcon from '../../assets/KeepIcon.png'
+import KeepIcon from '../../assets/keep.png'
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const drawerWidth = 240;
@@ -48,8 +49,15 @@ class Header extends React.Component {
     constructor(props){
         super(props)
         this.state={
-          drawerOpen: false
+          drawerOpen: false,
+          heading:"Keep"
         }
+        this.drawerOpen = this.handleDrawerOpen.bind(this)
+        this.drawerClose = this.handleDrawerClose.bind(this)
+    }
+    onSelection = (head) => {
+      this.setState({heading:head})
+      this.props.onChange(head)
     }
     handleDrawerOpen = () => {
       console.log("drawer open")
@@ -63,6 +71,7 @@ class Header extends React.Component {
       const { classes } = this.props;
         return ( 
             <div className="grow">
+              <CssBaseline/>
             <AppBar  position="fixed" 
              className={clsx(classes.appBar, {
              [classes.appBarShift]: this.state.open,
@@ -78,10 +87,8 @@ class Header extends React.Component {
                 >
                   <MenuIcon />
                 </IconButton>
-                <div>
-                {/* <img src={KeepIcon} alt="KeepIcon" className="Iconpng"/> */}
-                <span className="gb_5d">Keep</span> 
-                </div>
+                <img src={KeepIcon} alt="KeepIcon" className="Iconpng"/>
+                <span className="gb_5d">{this.state.heading}</span> 
                 <div className="search">
                   <div className="searchIcon">
                     <SearchIcon />
@@ -117,7 +124,7 @@ class Header extends React.Component {
                 </div>
               </Toolbar>
             </AppBar>
-            <SideNav open={this.state.drawerOpen}/>
+            <SideNav open={this.state.drawerOpen} drawerOpen={this.handleDrawerOpen} drawerClose={this.handleDrawerClose} onChange={this.onSelection} selectedRoute={this.state.heading} />
           </div>
          );
     }
