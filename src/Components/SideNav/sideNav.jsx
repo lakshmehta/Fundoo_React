@@ -88,7 +88,7 @@ const styles = theme =>  ({
     overflow: 'hidden',
     width:'100%',
     backgroundColor: '#FEEFC3',
-    borderRadius: '25px 25px 25px 25px',
+    borderRadius: '24px 24px 24px 24px',
   },
 drawerPaper: {
     width: drawerWidth,

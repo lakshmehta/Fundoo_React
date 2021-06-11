@@ -1,0 +1,38 @@
+.note-icons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 55%;
+}
+.icon-size{
+    width: 18px !important;
+}
+.note-icons-hover{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.note-icons-hover:hover {
+    background-color: rgb(228, 217, 217);
+}
+.trash{
+    width: 70px;
+}
+.color{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin: 1px;
+    border-radius: 15px;
+}
+.color:hover {
+    background-color: #c9cbce,
+}

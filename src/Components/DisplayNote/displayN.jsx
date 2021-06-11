@@ -2,18 +2,12 @@ import React from 'react';
 import pin from '../../assets/pinn.svg'
 import { withStyles } from '@material-ui/core/styles';
 import { Dialog, TextField } from '@material-ui/core';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
-import IconButton from '@material-ui/core/IconButton';
-import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
-import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import UserService from '../../services/userService';
 import './displayN.css'
 import Truncate from 'react-truncate';
 import Button from '@material-ui/core/Button';
-
+import Icon from '../Icons/icon'
+import NoteCard from '../Card/notecard';
 const styles ={
     underline: {    
         "& .MuiInput-underline:before": {
@@ -67,48 +61,34 @@ class DisplayNote extends React.Component {
         console.log(input)
     }
     onUpdate=()=>{
-        let userData = {
-            noteId: this.state.noteId,
-            title: this.state.title,
-            description: this.state.description
-        }
+        // let userData = {
+        //     noteId: this.state.noteId,
+        //     title: this.state.title,
+        //     description: this.state.description
+        // }
         console.log(this.state.title,this.state.description)
-let requestData = new FormData();
-requestData.set("noteId", this.state.noteId);
-requestData.set("title", this.state.title);
-requestData.set("description", this.state.description);
-        if(this.state.title!=="" && this.state.description!==""){
+        let requestData = new FormData();
+        requestData.set("noteId", this.state.noteId);
+        requestData.set("title", this.state.title);
+        requestData.set("description", this.state.description);
+                if(this.state.title!=="" && this.state.description!==""){
             new UserService().updateNote(requestData).then((data) =>{
                 console.log('Update Note',data)
-            
+                this.props.getNote()
                 }).catch((error) =>{
                     console.log("error", error)
                 })
             }
     }
     render() { 
-        console.log(this.props.notesArray,"getting notes")
+        console.log(this.props.NotesArray,"getting notes")
         const {classes} = this.props;
         return ( 
             <>
                 <div className="noteDisplay">
                     <div className="notes-box">
-                       {this.props.notesArray.map((key,index)=> 
-                           
-                            <div className="align-title-des">
-                                <div onClick={() => this.handleNoteOpen(key)}>
-                                    <div className="title-note">
-                                        <h3>{key.title}</h3>
-                                        <img src={pin} alt="" />
-                                    </div>
-                                    <div className="description-note">
-                                        <Truncate lines={10} ellipsis={<span>...</span>}>
-                                            {key.description}
-                                        </Truncate>
-                                    </div>
-                                </div>
-                            </div>
-                            
+                       {this.props.NotesArray.filter((data) => data.isDeleted === false).filter((data) => data.isArchived === false).reverse().map((key)=> 
+                            <NoteCard  val={key}/> 
                        )}
                     </div>
                      
@@ -137,27 +117,12 @@ requestData.set("description", this.state.description);
                             justifyContent:"space-between"
                         }}>
                             <div className="dialog-icon">
-                                <IconButton val={this.state.value}>
-                                    <AddAlertOutlinedIcon  style={{fontSize:"medium",color:"black"}}/>
-                                </IconButton>
-                                <IconButton val={this.state.value}>
-                                    <PersonAddOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                </IconButton>
-                                <IconButton val={this.state.value}>
-                                    <PaletteOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                </IconButton>
-                                <IconButton val={this.state.value}>
-                                    <ImageOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                </IconButton>
-                                <IconButton val={this.state.value}>
-                                    <ArchiveOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                </IconButton>
-                                <IconButton val={this.state.value}>
-                                    <MoreVertOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                </IconButton>
+                                <Icon val={this.props.value}/>
                             </div>
                             <Button className="dialog-close"
-                             onClick={()=>{this.handleNoteclose()}}>
+                             onClick={()=>{this.handleNoteclose();
+                             this.onUpdate()
+                             }}>
                                 Close
                             </Button>
                         </div>

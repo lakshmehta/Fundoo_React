@@ -124,7 +124,11 @@ class Header extends React.Component {
                 </div>
               </Toolbar>
             </AppBar>
-            <SideNav open={this.state.drawerOpen} drawerOpen={this.handleDrawerOpen} drawerClose={this.handleDrawerClose} onChange={this.onSelection} selectedRoute={this.state.heading} />
+            <SideNav open={this.state.drawerOpen} 
+            drawerOpen={this.handleDrawerOpen} 
+            drawerClose={this.handleDrawerClose} 
+            onChange={this.onSelection} 
+            selectedRoute={this.state.heading} />
           </div>
          );
     }
