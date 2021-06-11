@@ -2,8 +2,9 @@ import React, {Component} from 'react'
 import TakeNote from '../Take a note/takeanote'
 import DisplayNote from '../DisplayNote/displayN';
 import '../../App.css'
-import Bell from '../../assets/icon/bell.svg'
 import UserService from '../../services/userService';
+
+
 class Note extends Component {
    constructor(props){
     super(props)
@@ -12,23 +13,26 @@ class Note extends Component {
         }
     }
     getAllNotes=()=>{
-        let userData={
-            title:this.state.title,
-            description:this.state.note
-        }
-            new UserService().getAllNotes(userData).then((data)=>{
-                console.log(data.data.data.data)
+             new UserService().getAllNotes().then((result)=>{
+                console.log(result.data.data.data,"get all notes")
+                let arrayData=result.data.data.data;
                 this.setState({
-                    notes:data.data.data.data
+                    notes:arrayData
                 }) 
             }).catch(error =>{
                 this.setState({
                     open: true
-                }, () => { console.log(this.state)})
-                console.log("error",error)
+                })
+        
             })
         
     };
+    shouldComponentUpdate(nextProps, nextState){
+        if(this.state.notes != nextState.notes){
+            return true
+        }
+        return false;
+    }
     componentDidMount(){
         this.getAllNotes()
     }
@@ -37,8 +41,7 @@ class Note extends Component {
         return (
             <div>
                 <TakeNote getAll={this.getAllNotes}/>
-                <DisplayNote  notesArray={this.state.notes}/>
-                {/* <img src={Bell} alt="Bell logo" className="bell"/> */}
+                <DisplayNote  NotesArray={this.state.notes} getNote={this.getAllNotes}/>
             </div>
           );
     }
