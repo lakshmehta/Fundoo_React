@@ -145,7 +145,7 @@ class SideNav extends React.Component {
           {/* <IconButton onClick={this.handleDrawerClose}> */}
             {/* {theme.dire === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />} */}
           {/* </IconButton> */}
-        <List  onMouseEnter={this.handleDrawerOpen} onMouseLeave={this.handleDrawerClose}>
+        <List>
           <ListItem className={this.props.selectedRoute == "Keep" ? classes.newListItems : classes.listItem} button={true} onClick={()=>this.onChange("Keep")} >
             <ListItemIcon><EmojiObjectsOutlinedIcon /></ListItemIcon>
             <ListItemText primary="Notes" />

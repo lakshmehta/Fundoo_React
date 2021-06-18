@@ -103,7 +103,7 @@ class Header extends React.Component {
                 <div className="sectionDesktop">
                   <IconButton  >
                     <Badge color="black">
-                      <RefreshOutlinedIcon />
+                      <RefreshOutlinedIcon onClick={() => window.location.reload(false)}/>
                     </Badge>
                   </IconButton>
                   <IconButton>

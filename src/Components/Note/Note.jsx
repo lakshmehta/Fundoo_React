@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import TakeNote from '../Take a note/takeanote'
 import DisplayNote from '../DisplayNote/displayN';
 import '../../App.css'
-import UserService from '../../services/userService';
+import NoteService from '../../services/noteService';
 
 
 class Note extends Component {
@@ -12,13 +12,17 @@ class Note extends Component {
             notes:[]
         }
     }
+    componentDidMount(){
+        this.getAllNotes()
+    }
     getAllNotes=()=>{
-             new UserService().getAllNotes().then((result)=>{
+             new NoteService().getAllNotes().then((result)=>{
                 console.log(result.data.data.data,"get all notes")
-                let arrayData=result.data.data.data;
                 this.setState({
-                    notes:arrayData
+                    notes:result.data.data.data
                 }) 
+
+                console.log("notes",this.state.notes)
             }).catch(error =>{
                 this.setState({
                     open: true
@@ -27,17 +31,15 @@ class Note extends Component {
             })
         
     };
-    shouldComponentUpdate(nextProps, nextState){
-        if(this.state.notes != nextState.notes){
-            return true
-        }
-        return false;
-    }
-    componentDidMount(){
-        this.getAllNotes()
-    }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     if(this.state.notes != nextState.notes){
+    //         return true
+    //     }
+    //     return false;
+    // }
+    
     render() { 
-        console.log(this.state.notes)
+        console.log(this.state.notes,"Notes")
         return (
             <div>
                 <TakeNote getAll={this.getAllNotes}/>

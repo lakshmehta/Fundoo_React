@@ -65,6 +65,7 @@ class Login extends Component {
            new UserService().login(userData).then((data)=>{
                 console.log('data',data.data.id);
                 localStorage.setItem('token',data.data.id)
+                this.props.history.push('/dashboard')
             }).catch(error => {})
          }
          else{
