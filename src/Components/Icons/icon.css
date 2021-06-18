@@ -5,6 +5,7 @@
     justify-content: space-between;
     cursor: pointer;
     width: 55%;
+    margin-top: 10px;
 }
 .icon-size{
     width: 18px !important;

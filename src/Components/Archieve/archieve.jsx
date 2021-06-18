@@ -1,8 +1,8 @@
 import React from 'react'
-import UserService from '../../services/userService'
+import NoteService from '../../services/noteService'
 import { withStyles } from '@material-ui/core/styles';
-import {   Dialog,TextField } from '@material-ui/core';
-import Icon from '../Icons/icon';
+// import {   Dialog,TextField } from '@material-ui/core';
+// import Icon from '../Icons/icon';
 import '../../App.css'
 import NoteCard from '../Card/notecard';
 const styles ={
@@ -54,7 +54,7 @@ class Archive extends React.Component {
     //     console.log(input)
     // }
     getArchNote=()=>{
-        new UserService().getArchiveNote().then((data)=>{
+        new NoteService().getArchiveNote().then((data)=>{
             console.log(data)
             this.setState({
                 notes:data.data.data.data
@@ -71,13 +71,13 @@ class Archive extends React.Component {
         console.log(this.state.notes)
         
         return ( 
-            <div className="noteDisplay"> 
-                <div className="notes-box">
-                {this.state.notes.filter(data=>data.isArchived === true).reverse().map((val)=>
-                    <NoteCard val={val}/>
-                )}
-            </div>          
-        </div>
+                <div className="noteDisplayA"> 
+                    <div className="notes-box" style={{marginTop:'80px'}}>
+                        {this.state.notes.filter(data=>data.isArchived === true).reverse().map((value)=>
+                            <NoteCard value={value} getArchNote={this.getArchNote()}/>
+                        )}
+                    </div>          
+                </div>
          );
     }
 }

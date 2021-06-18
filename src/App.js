@@ -4,7 +4,7 @@ import Login from './Components/Login/login';
 import Register from './Components/Resgistration/register';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard/dashboard';
-
+import ProtectedRoute from './Components/ProtectedRoute/protected' 
 
 
 

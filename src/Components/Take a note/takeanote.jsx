@@ -6,17 +6,15 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import pin from '../../assets/pinn.svg';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
-import IconButton from '@material-ui/core/IconButton';
-import PaletteOutlinedIcon from '@material-ui/icons/PaletteOutlined';
-import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
-import UserService from '../../services/userService';
+// import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
+import NoteService from '../../services/noteService';
 import './takeanote.css'
 import { Button } from '@material-ui/core';
-
-
-
+import { Chip } from '@material-ui/core';
+import moment from 'moment';
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import Icon from '../Icons/icon';
+import DoneIcon from '@material-ui/icons/Done';
 
 const styles = {
     underline: {
@@ -35,7 +33,10 @@ class TakeNote extends React.Component {
             open: true,
             title:"",
             note:"",
-            response:false
+            response:false,
+            color:"",
+            reminder:"",
+            isArchived:false
         }
     }
     handleNoteOpen = () => {
@@ -43,41 +44,61 @@ class TakeNote extends React.Component {
     }
     handleNoteclose = () => {
         let userData={
+            isArchived:this.state.isArchived,
             title: this.state.title,
-            description: this.state.note
+            description: this.state.note,
+            reminder:this.state.reminder,
+            color:this.state.color
         }
         if(this.state.title !=="" && this.state.description !==""){
-            new UserService().addNote(userData).then((data)=>{
+            new NoteService().addNote(userData).then((data)=>{
                 console.log("note added",data);
                 this.props.getAll()
-                this.setState({
-                    open:true,
-                    title:"",
-                    note:"",
-                    response:true
-                }, () => {console.log(this.state)})
+                this.props.updateReminderData()
+              
             }).catch(error =>{
                 this.setState({
                     open: true
                 }, () => { console.log(this.state)})
                 console.log("error",error)
             })
-        }else{
-            this.setState({
-                open:true,
-                title:"",
-                note:"",
-                response: true
-            }, () => {console.log(this.state)} )
         }
     };
-
+    getArchivedNote =()=>{
+        this.setState({
+            isArchived:true
+        })
+    }
     handleInput = (event) => {
         this.setState({
             [event.target.name]: event.target.value
         }, () => { console.log(this.state); })
     }
+    
+    getReminderData =(date,time)=>{
+        if(date!==null && time !==null){
+            let reminder =moment(date).format("MMM D")+","+moment(time).format("h:mm:A");
+            this.setState({
+                reminder:reminder
+            })
+            console.log("reminder",reminder)
+            console.log(moment(date).format("MMM D"));
+            console.log(moment(time).format("h:mm:A"));
+        }
+    }
+    handleReminder = () => {
+        this.setState({
+            reminder:null
+        })
+    }
+    handleColor = (colorVal) =>{
+        console.log("color",colorVal)
+        this.setState({
+            color:colorVal
+        })
+    }
     render() { 
+        console.log("take a note",this.props.NotesArray)
         const { classes } = this.props;
         return ( 
             <div className="note">
@@ -121,27 +142,25 @@ class TakeNote extends React.Component {
                                     inputProps={{ 'aria-label': 'naked' }}
                                 />
                             </div>
+                           <div className="chip">
+                               {this.state.reminder !== "" &&  (
+                           <div className="reminder">
+                               <Chip
+                                size="small"
+                                label={this.state.reminder}
+                                icon={< AccessTimeIcon />}
+                                clickable
+                                // color=""
+                                onDelete={this.handleReminder}
+                                deleteIcon={<DoneIcon />}
+                            />
+                           </div>
+                                )}
+                           </div>
+                            
                             <div className="align-icon">
-                                <div className="position">
-                                    <IconButton>
-                                        <AddAlertOutlinedIcon  style={{fontSize:"medium",color:"black"}}/>
-                                    </IconButton>
-                                    <IconButton>
-                                        <PersonAddOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                    </IconButton>
-                                    <IconButton>
-                                        <PaletteOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                    </IconButton>
-                                    <IconButton>
-                                        <ImageOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                    </IconButton>
-                                    <IconButton>
-                                        <ArchiveOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                    </IconButton>
-                                    <IconButton>
-                                        <MoreVertOutlinedIcon style={{fontSize:"medium",color:"black"}}/>
-                                    </IconButton>
-                                </div>
+                                <Icon setColor={this.handleColor} getReminder={this.getReminderData} notes={this.props.NotesArray} archieve={this.getArchivedNote}/>
+                                
                                 <div className="close">
                                     <Button variant="text" size="small" onClick={() => {
                                         this.handleNoteclose();
