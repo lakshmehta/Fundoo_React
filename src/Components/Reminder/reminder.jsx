@@ -29,7 +29,9 @@ class Reminder extends Component {
         return ( 
             <div>
                 <TakeNote updateReminderData={this.getReminderNote}/>
-                <DisplayReminder NotesArray={this.state.notes} updateReminderUpdate={this.getReminderNote}/>    
+                <DisplayReminder NotesArray={this.state.notes}
+                render={this.props.render}
+                updateReminderUpdate={this.getReminderNote}/>    
             </div>
          );
     }

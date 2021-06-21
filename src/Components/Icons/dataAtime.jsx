@@ -73,6 +73,7 @@ export default function DatePickers(props) {
   }
   const onSave = () =>{
     setClose(!close)
+    console.log(setClose(!close));
     if(props.edit === true){
       console.log("if part onSave")
       props.updateReminder(selectedDate, selectedTime)

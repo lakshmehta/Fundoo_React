@@ -17,7 +17,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Button } from '@material-ui/core';
-
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 export default class Icon extends Component {
     constructor(){
         super()
@@ -61,7 +62,7 @@ export default class Icon extends Component {
         }
         new NoteService().archiveNote(data).then((data)=>{
             console.log("data",data)
-            this.props.getNotes()
+            this.props.getNote()
             this.setState({
                 open:true
             })
@@ -117,28 +118,38 @@ export default class Icon extends Component {
         new NoteService().changeColor(Data).then((data) =>{
             console.log('color of note',data);
             this.props.getNote();
+            console.log("getNote",this.props.getNote())
         }).catch(error=>{
             console.log("color error",error);
         })
         console.log("Color",Data)
     }
-    // addUpdateReminder = (item)=>{
-    //     if(item !== null && this.state.dateTimeChip !== ""){
-    //         let data={
-    //             reminder:this.state.dateTimeChip,
-    //         }
-    //         new NoteService().addReminder(data).then((result)=>{
-    //             console.log(result)
-    //         }).catch((error)=>{
-    //             console.log(error)
-    //         })
-    //     }
-    // }
-    // handleDeleteChip =() =>{
-    //     this.setState({
-    //         setDisplayDayTime:""
-    //     })
-    // }
+    delNoteF=()=>{
+        let data ={
+                    isDeleted:true,
+                    noteIdList: [this.props.Notes.id]
+                }
+                console.log(this.props.Notes.id)
+        new NoteService().deleteNotePermanently(data).then((res)=>{
+            console.log(data,"delete")
+            this.getNote()
+        }).catch((error)=>{
+            console.log(error,"error")
+        })
+    }
+    restoreNote=()=>{
+        let data ={
+            isDeleted:false,
+            noteIdList: [this.props.Notes.id]
+        }
+        new NoteService().deleteNote(data).then((data)=>{
+            this.getNote()
+            console.log(data)
+            this.handleClose();
+        }).catch((error)=>{
+            console.log(error)
+        })
+    }
     getData = (date, time) =>{
         console.log("get reminder",this.props.getReminder)
         this.props.getReminder(date,time)
@@ -150,7 +161,14 @@ export default class Icon extends Component {
         return (
             <StylesProvider injectFirst>
                 <div className="note-icons">
-                    <div className="note-icon-hover">
+                {/* {this.props.Notes.isDeleted  ? 
+                    <div className="trash-icon">
+                        <DeleteForeverIcon className="icon-size" onClick={()=>this.delNoteF()}/>
+                        <RestoreFromTrashIcon className="icon-size"  onClick={()=>this.restoreNote()} />
+                        </div>
+                    :<>  */}
+                    
+                    <div className="note-icon-hover">                  
                         <ReminderPopper
                             getReminder={this.getData}/>
                     </div>
@@ -219,7 +237,8 @@ export default class Icon extends Component {
                             <MenuItem onClick={this.handleClose}>Show checkboxes</MenuItem>
                             <MenuItem onClick={this.handleClose}>Copy to Google Docs</MenuItem>
                         </Menu>
-                    </div>
+                        </div>
+                    {/* </>} */}
                 </div>
             </StylesProvider>
         )

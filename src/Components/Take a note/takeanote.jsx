@@ -55,7 +55,8 @@ class TakeNote extends React.Component {
                 console.log("note added",data);
                 this.props.getAll()
                 this.props.updateReminderData()
-              
+                console.log(this.props.updateReminderData(),"update reminder method");
+                console.log( this.props.getAll(),"get all note method");
             }).catch(error =>{
                 this.setState({
                     open: true
@@ -99,6 +100,7 @@ class TakeNote extends React.Component {
     }
     render() { 
         console.log("take a note",this.props.NotesArray)
+        console.log(this.props.getAll,"getAll")
         const { classes } = this.props;
         return ( 
             <div className="note">
@@ -159,7 +161,7 @@ class TakeNote extends React.Component {
                            </div>
                             
                             <div className="align-icon">
-                                <Icon setColor={this.handleColor} getReminder={this.getReminderData} notes={this.props.NotesArray} archieve={this.getArchivedNote}/>
+                                <Icon setColor={this.handleColor} getReminder={this.getReminderData} notes={this.props.NotesArray} archieve={this.getArchivedNote} getNote={this.props.getAll}/>
                                 
                                 <div className="close">
                                     <Button variant="text" size="small" onClick={() => {
