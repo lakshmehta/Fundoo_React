@@ -54,7 +54,8 @@ class Login extends Component {
       onSubmitClick =() => {
           const userData ={
             "email":this.state.email,
-            "password":this.state.password
+            "password":this.state.password,
+            "server": "advance"
           }
       //  new UserService().login(userData).then((data)=>{
       //       console.log('data',data);

@@ -1,20 +1,10 @@
 import React from 'react'
 import NoteService from '../../services/noteService'
-import { withStyles } from '@material-ui/core/styles';
 // import {   Dialog,TextField } from '@material-ui/core';
 // import Icon from '../Icons/icon';
 import '../../App.css'
 import NoteCard from '../Card/notecard';
-const styles ={
-    underline: {    
-        "& .MuiInput-underline:before": {
-            position: 'fixed'
-        },
-        "& .MuiInput-underline:after": {
-            position: 'fixed'
-        }
-    }
-}
+
 class Archive extends React.Component {
     constructor(props){
         super(props)
@@ -69,17 +59,18 @@ class Archive extends React.Component {
     }
     render() { 
         console.log(this.state.notes)
-        
         return ( 
-                <div className="noteDisplayA"> 
-                    <div className="notes-box" style={{marginTop:'80px'}}>
+                <div className="noteDisplay" > 
+                    {/* <div className="notes-box" >
                         {this.state.notes.filter(data=>data.isArchived === true).reverse().map((value)=>
                             <NoteCard value={value} getArchNote={this.getArchNote()}/>
                         )}
-                    </div>          
+                    </div>           */}
+                    <div style={{marginTop:'80px'}}>{this.props.render(this.state.notes)}</div>
+                    
                 </div>
          );
     }
 }
  
-export default (withStyles(styles)(Archive));
+export default Archive;

@@ -39,35 +39,35 @@ class DisplayReminder extends Component {
             reminder:value.reminder
         })
     }
-    updateReminderNote = () =>{
-        let data={
-            title: this.state.title,
-            description: this.state.description,
-            noteId: this.state.noteId,
-            reminder: this.state.reminder
-        }
-        new NoteService().addReminder(data).then((result)=>{
-            console.log(result,"display reminder")
-            this.props.updateReminderNote();
-            // eslint-disable-next-line no-lone-blocks
-            {this.handleClose()}
-        })
-    }
-    updateReminder = (date, time) =>{
-        if (date !== null && time !== null) {
-            let reminder = moment(date).format("MMM D")+", "+ moment(time).format("h:mm:A");
-            this.setState({
-                reminder: reminder,
-            });
-        this.updateReminderNote();
-        }
-    }
+    // updateReminderNote = () =>{
+    //     let data={
+    //         title: this.state.title,
+    //         description: this.state.description,
+    //         noteId: this.state.noteId,
+    //         reminder: this.state.reminder
+    //     }
+    //     new NoteService().addReminder(data).then((result)=>{
+    //         console.log(result,"display reminder")
+    //         this.props.updateReminderNote();
+    //         // eslint-disable-next-line no-lone-blocks
+    //         {this.handleClose()}
+    //     })
+    // }
+    // updateReminder = (date, time) =>{
+    //     if (date !== null && time !== null) {
+    //         let reminder = moment(date).format("MMM D")+", "+ moment(time).format("h:mm:A");
+    //         this.setState({
+    //             reminder: reminder,
+    //         });
+    //     this.updateReminderNote();
+    //     }
+    // }
     render() { 
         console.log(this.props.NotesArray," note array")
         return ( 
          <div className="noteDisplay">
             <div className="notes-box">
-                {this.props.NotesArray.filter((data)=>data.isArchived==false).filter((data)=>data.isDeleted==false).map((value)=>
+                {/* {this.props.NotesArray.filter((data)=>data.isArchived==false).filter((data)=>data.isDeleted==false).map((value)=>
                 {
                     console.log(value,"value")
                 return(
@@ -81,7 +81,8 @@ class DisplayReminder extends Component {
                     />
                 </div>
                 )}
-                )}
+                )} */}
+                {this.props.render(this.props.NotesArray)}
             </div>
             <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
                 <div className="dialog-body">

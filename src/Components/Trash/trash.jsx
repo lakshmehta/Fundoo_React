@@ -1,21 +1,10 @@
 import React,{Component} from 'react'
 import '../../App.css'
 import NoteService from '../../services/noteService';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 
 
 
-// const styles ={
-//     underline: {    
-//         "& .MuiInput-underline:before": {
-//             position: 'fixed'
-//         },
-//         "& .MuiInput-underline:after": {
-//             position: 'fixed'
-//         }
-//     }
-// }
+
 class Trash extends Component {
     constructor(){
         super()
@@ -37,32 +26,7 @@ class Trash extends Component {
             console.log(this.state.notes)
         })
     }
-    delNoteF=(val)=>{
-        let data ={
-                    isDeleted:true,
-                    noteIdList: [val.id]
-                }
-                console.log(val.id)
-        new NoteService().deleteNotePermanently(data).then((res)=>{
-            console.log(data,"delete")
-            this.getNote()
-        }).catch((error)=>{
-            console.log(error,"error")
-        })
-    }
-    restoreNote=(val)=>{
-        let data ={
-            isDeleted:false,
-            noteIdList: [val.id]
-        }
-        new NoteService().deleteNote(data).then((data)=>{
-            this.getNote()
-            console.log(data)
-            this.handleClose();
-        }).catch((error)=>{
-            console.log(error)
-        })
-    }
+    
     
     handleTitle = (input) =>{
         this.setState({
@@ -90,9 +54,9 @@ class Trash extends Component {
         console.log(this.state.notes)
         return ( 
             <div className="cont">
-            <h1 className="heading">Notes in Trash are deleted in 7 days</h1>
+            <span className="heading">Notes in Trash are deleted in 7 days</span>
                 <div className="noteDisplay"> 
-                    <div className="notes-box" style={{justifyContent:'center'}}>
+                    {/* <div className="notes-box" style={{justifyContent:'center'}}>
                         {this.state.notes.filter(data=>data.isDeleted === true).map((val)=>
                             <div className="align-title-des" key={val} style={{background:val.color}}>
                                 <div  className="title-note">
@@ -109,11 +73,12 @@ class Trash extends Component {
                                 </div>
                             </div>
                         )}
-                    </div> 
+                    </div>  */}
+                    {this.props.render(this.state.notes)}
                 </div>
             </div>
          );
     }
 }
  
-export default Trash;
+export default Trash;  

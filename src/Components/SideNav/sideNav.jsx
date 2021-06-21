@@ -14,7 +14,7 @@ import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import ArchiveIcon from '@material-ui/icons/Archive';
-import '../SideNav/sideNav.css';
+
 
 
 const drawerWidth = 240;
@@ -66,14 +66,13 @@ const styles = theme =>  ({
     overflow: 'hidden',
     width:'100%',
     backgroundColor: '#fff',
-    borderRadius: '25px 25px 25px 25px',
   },
   newListItems:{
     webkitBoxSizing: 'border-box',
     boxSizing: 'border-box',
     border: '1px solid transparent',
     webkitBordeRadius: '0 25px 25px 0',
-    borderRadius: '0 25px 25px 0',
+    borderRadius: '25px 25px 25px 25px',
     color: '#202124',
     display: 'flex',
     webkitAlignItems: 'center',
@@ -88,7 +87,7 @@ const styles = theme =>  ({
     overflow: 'hidden',
     width:'100%',
     backgroundColor: '#FEEFC3',
-    borderRadius: '24px 24px 24px 24px',
+
   },
 drawerPaper: {
     width: drawerWidth,
@@ -173,4 +172,4 @@ class SideNav extends React.Component {
     }
 }
  
-export default withStyles(styles) (SideNav);
+export default withStyles(styles)(SideNav);

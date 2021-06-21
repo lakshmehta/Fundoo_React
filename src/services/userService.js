@@ -12,7 +12,7 @@ export default class UserService{
         let url = baseUrl+'user/login';
         const headers={
             "content-type": "application/json",
-            Authorization: localStorage.getItem('token')
+            // Authorization: localStorage.getItem('token')
         }
         return this.axios_service.post(url,data,headers)
 

@@ -15,8 +15,8 @@ import '../Header/header.css';
 import SideNav  from '../SideNav/sideNav';
 import KeepIcon from '../../assets/keep.png'
 import CssBaseline from '@material-ui/core/CssBaseline';
-
-
+import Avatar from '@material-ui/core/Avatar';
+import ViewAgendaOutlinedIcon from '@material-ui/icons/ViewAgendaOutlined';
 const drawerWidth = 240;
 
 const styles = theme =>  ({
@@ -103,12 +103,12 @@ class Header extends React.Component {
                 <div className="sectionDesktop">
                   <IconButton  >
                     <Badge color="black">
-                      <RefreshOutlinedIcon onClick={() => window.location.reload(false)}/>
+                      <RefreshOutlinedIcon/>
                     </Badge>
                   </IconButton>
                   <IconButton>
                     <Badge color="black">
-                      < AppsOutlinedIcon/>
+                      < ViewAgendaOutlinedIcon/>
                     </Badge>
                   </IconButton>
                   <IconButton
@@ -116,12 +116,19 @@ class Header extends React.Component {
                   >
                     <SettingsOutlinedIcon/>
                   </IconButton>
+                  </div>
+                  <div>
                   <IconButton
                     color="black"
                   >
                     <AppsOutlinedIcon/>
                   </IconButton>
-                </div>
+                  <IconButton
+                    color="black"
+                  >
+                    <Avatar>H</Avatar>
+                  </IconButton>
+               </div>
               </Toolbar>
             </AppBar>
             <SideNav open={this.state.drawerOpen} 
@@ -134,4 +141,4 @@ class Header extends React.Component {
     }
 }
  
-export default withStyles(styles) (Header);
+export default withStyles(styles)(Header);

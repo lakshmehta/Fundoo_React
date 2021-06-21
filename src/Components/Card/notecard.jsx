@@ -3,22 +3,12 @@ import Icon from '../Icons/icon'
 import '../../App.css'
 // import Button from '@material-ui/core/Button'
 // import { Dialog, TextField } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import NoteService from '../../services/noteService';
 import moment from "moment"
 import { Chip } from '@material-ui/core';
 import  DatePickers from '../Icons/dataAtime'
 
-const styles ={
-    underline: {    
-        "& .MuiInput-underline:before": {
-            position: 'fixed'
-        },
-        "& .MuiInput-underline:after": {
-            position: 'fixed'
-        }
-    }
-}
+
 class NoteCard extends React.Component {
     constructor(props) {
         super(props);
@@ -110,8 +100,8 @@ class NoteCard extends React.Component {
     }
  
     render() { 
-        var mom = moment(this.props.value.reminder).format("hA");
-        console.log(mom,"time")
+        // var mom = moment(this.props.value.reminder).format("hA");
+        // console.log(mom,"time")
         // const {classes} = this.props;
         return ( 
         <>
@@ -124,8 +114,7 @@ class NoteCard extends React.Component {
                     </div>
                     <Chip
                         onClick={this.callChange}
-                        // label={mom}
-                        label={this.props.value.reminder}
+                        label={moment(new Date(this.props.value.reminder)).format("MMM DD,h:mm A")}
                         onDelete={() => this.removeReminder(this.props.value)}
                         />
                         <Icon Notes={this.props.value} getArchNote={this.props.getArchNote}  setColor={this.setColor}/>
@@ -180,4 +169,4 @@ class NoteCard extends React.Component {
     }
 }
  
-export default(withStyles(styles)(NoteCard));
+export default NoteCard;

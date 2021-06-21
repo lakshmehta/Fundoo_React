@@ -6,7 +6,7 @@ import '../../App.css'
 import Reminder from '../Reminder/reminder'
 import Archieve from '../Archieve/archieve' 
 import Trash from '../Trash/trash'
-
+import MapData from '../MapData/mapData';
 
 
 
@@ -23,21 +23,24 @@ class Dashboard extends React.Component {
         this.setState({page:page})
         console.log(page)
     }
+    displayRenderData =(data) =>{
+        return <MapData notes={data}/>
+    }
     rendering=()=>{
         if(this.state.page =="keep"){
-            return <Note/>
+            return <Note render={this.displayRenderData}/>
         }
-        else if(this.state.page=="Reminders"){
-            return <Reminder/>
+        else if(this.state.page =="Reminders"){
+            return <Reminder render={this.displayRenderData}/>
         }
-        else if(this.state.page=="Archieve"){
-            return <Archieve/>
+        else if(this.state.page =="Archieve"){
+            return <Archieve render={this.displayRenderData}/>
         }
-        else if(this.state.page=="Trash"){
-            return <Trash/>
+        else if(this.state.page =="Trash"){
+            return <Trash render={this.displayRenderData}/>
         }
         else{
-            return <Note/>
+            return <Note render={this.displayRenderData}/>
         }
     }
     render() { 

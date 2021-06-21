@@ -42,8 +42,8 @@ class Note extends Component {
         console.log(this.state.notes,"Notes")
         return (
             <div>
-                <TakeNote getAll={this.getAllNotes}/>
-                <DisplayNote  NotesArray={this.state.notes} getNote={this.getAllNotes}/>
+                <TakeNote getAll={this.getAllNotes} NotesArray={this.state.notes}/>
+                <DisplayNote  NotesArray={this.state.notes} getNote={this.getAllNotes} render={this.props.render}/>
             </div>
           );
     }

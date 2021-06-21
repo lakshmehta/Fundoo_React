@@ -81,7 +81,7 @@ class DisplayNote extends React.Component {
             <>
                 <div className="noteDisplay">
                     <div className="notes-box">
-                       {this.props.NotesArray.filter((data) => data.isDeleted === false).filter((data) => data.isArchived === false).reverse().map((key)=> 
+                       {/* {this.props.NotesArray.filter((data) => data.isDeleted === false).filter((data) => data.isArchived === false).reverse().map((key)=> 
                         <div className="align-title-des" style={{backgroundColor:key.color}} >
                            <div  className="title-note" style={{padding:'5px'}}>
                                {key.title}  
@@ -91,7 +91,8 @@ class DisplayNote extends React.Component {
                            </div>
                                <Icon Notes={key} getArchNote={this.props.getArchNote}/>
                        </div>
-                       )}
+                       )} */}
+                       {this.props.render(this.props.NotesArray)}
                     </div>
                     <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
                     <div className="dialogbox">
