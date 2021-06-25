@@ -100,12 +100,14 @@ class NoteCard extends React.Component {
     }
  
     render() { 
+        console.log(this.props.view);
         // var mom = moment(this.props.value.reminder).format("hA");
         // console.log(mom,"time")
         // const {classes} = this.props;
         return ( 
-        <>
-                <div className="align-title-des" style={{backgroundColor:this.props.value.color}} >
+        <>     
+        {/* <div className={this.props.view == true ? "notes-box":"notes-box-grid"}> */}
+        <div  className={this.props.view == true ?"align-title-des": "align-title-des-grid"} style={{backgroundColor:this.props.value.color}} >
                     <div  className="title-note" style={{padding:'5px'}}>
                         {this.props.value.title}  
                     </div> 
@@ -119,6 +121,8 @@ class NoteCard extends React.Component {
                         />
                         <Icon Notes={this.props.value} getArchNote={this.props.getArchNote}  setColor={this.setColor}/>
                 </div>
+        {/* </div> */}
+               
                     <div>
                         {this.state.datePicker ?
                             <DatePickers

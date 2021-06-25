@@ -161,6 +161,7 @@ export default class Icon extends Component {
         return (
             <StylesProvider injectFirst>
                 <div className="note-icons">
+                    
                 {/* {this.props.Notes.isDeleted  ? 
                     <div className="trash-icon">
                         <DeleteForeverIcon className="icon-size" onClick={()=>this.delNoteF()}/>

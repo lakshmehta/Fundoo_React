@@ -77,10 +77,11 @@ class DisplayNote extends React.Component {
 
     render() { 
         console.log(this.props.NotesArray,"getting notes")
+        console.log(this.props.view," display notes view");
         return ( 
             <>
                 <div className="noteDisplay">
-                    <div className="notes-box">
+                    <div className={this.props.view=== true?"notes-box":"notes-box-grid"}>
                        {/* {this.props.NotesArray.filter((data) => data.isDeleted === false).filter((data) => data.isArchived === false).reverse().map((key)=> 
                         <div className="align-title-des" style={{backgroundColor:key.color}} >
                            <div  className="title-note" style={{padding:'5px'}}>

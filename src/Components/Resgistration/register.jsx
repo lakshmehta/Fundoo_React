@@ -10,6 +10,13 @@ const regl=/^[A-Z]+[a-zA-Z]{2,}$/;
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const regpass=/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#$%&?]{8,20}$/;
 
+const firstnameRef=React.createRef();
+const lastnameRef=React.createRef();
+const emailRef=React.createRef();
+const passwordRef=React.createRef();
+const passConRef=React.createRef();
+const sumbitRef = React.createRef();
+
 
 class Register extends Component {
   constructor(props) {
@@ -26,11 +33,53 @@ class Register extends Component {
       passworderror:"",
       confirmpassworderror:""
     };
-     this.handleChangeLastName = this.handleChangeLastName.bind(this);
-     this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
-     this.handleChangeEmail = this.handleChangeEmail.bind(this);
-     this.handleChangePassword = this.handleChangePassword.bind(this);
-     this.handleChangeConfirmPassword=this.handleChangeConfirmPassword.bind(this);
+     
+
+
+      this.handleChangeLastName = this.handleChangeLastName.bind(this);
+      this.handleChangeFirstName = this.handleChangeFirstName.bind(this);
+      this.handleChangeEmail = this.handleChangeEmail.bind(this);
+      this.handleChangePassword = this.handleChangePassword.bind(this);
+      this.handleChangeConfirmPassword=this.handleChangeConfirmPassword.bind(this);
+  }
+  componentDidMount(){
+    firstnameRef.current.focus(); 
+  }
+  firstNameKeyPress(event){
+    if(event.charCode === 13){
+      event.preventDefault()
+      lastnameRef.current.focus();
+    }
+  }
+  lastNameKeyPress(event){
+    if(event.charCode === 13){
+      event.preventDefault()
+      emailRef.current.focus();
+    }
+  } 
+  emailKeyPress(event){
+    if(event.charCode === 13){
+      event.preventDefault()
+      passwordRef.current.focus();
+    }
+  } 
+  passwordNameKeyPress(event){
+    if(event.charCode === 13){
+      event.preventDefault()
+      passConRef.current.focus();
+    }
+  }
+  conPassNameKeyPress(event){
+    if(event.charCode === 13){
+      event.preventDefault()
+      sumbitRef.current.focus();
+    }
+  }
+  sumbitKeyPress(event){
+    if(event.charCode === 13){
+      event.preventDefault();
+      this.onSubmit();
+    }
   }
   handleChangeFirstName(event){
     this.setState({ firstname: event }) 
@@ -127,6 +176,8 @@ class Register extends Component {
                 <div className="name">
                   <div className="f-name">
                     <TextField
+                     inputRef={firstnameRef}
+                     onKeyPress={this.firstNameKeyPress}
                     size="small"
                       value={this.state.firstname}
                       className="input-name"
@@ -140,6 +191,8 @@ class Register extends Component {
                   </div>
                   <div className="f-name">
                     <TextField
+                    inputRef={lastnameRef}
+                    onKeyPress={this.lastNameKeyPress}
                     size="small"
                       value={this.state.lastname}
                       className="input-name"
@@ -155,6 +208,8 @@ class Register extends Component {
                 <div className="email-div">
                   <div className="f-name">
                     <TextField
+                    inputRef={emailRef}
+                    onKeyPress={this.emailKeyPress}
                       size="small"
                       value={this.state.email}
                       className="email"
@@ -174,6 +229,8 @@ class Register extends Component {
                 <div className="name password">
                   <div className="f-name">
                     <TextField
+                    inputRef={passwordRef}
+                    onKeyPress={this.passwordNameKeyPress}
                     size="small"
                       value={this.state.password}
                       className="input-name"
@@ -188,6 +245,8 @@ class Register extends Component {
                   </div>
                   <div className="f-name">
                     <TextField
+                    inputRef={passConRef}
+                    onKeyPress={this.conPassNameKeyPress}
                     size="small"
                       value={this.state.confirmpassword}
                       className="input-name"
@@ -213,7 +272,7 @@ class Register extends Component {
                         Sign in instead
                     </div>
                 </Link>
-                  <button  className="next" onClick={this.onSubmit}>
+                  <button ref={sumbitRef} className="next" onClick={this.onSubmit}>
                     Next
                   </button>
                 </div>
