@@ -17,6 +17,7 @@ import KeepIcon from '../../assets/keep.png'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Avatar from '@material-ui/core/Avatar';
 import ViewAgendaOutlinedIcon from '@material-ui/icons/ViewAgendaOutlined';
+import Search from '../Search/search'
 const drawerWidth = 240;
 
 const styles = theme =>  ({
@@ -50,11 +51,13 @@ class Header extends React.Component {
         super(props)
         this.state={
           drawerOpen: false,
-          heading:"Keep"
+          heading:"Keep",
+          
         }
         this.drawerOpen = this.handleDrawerOpen.bind(this)
         this.drawerClose = this.handleDrawerClose.bind(this)
     }
+    
     onSelection = (head) => {
       this.setState({heading:head})
       this.props.onChange(head)
@@ -89,15 +92,16 @@ class Header extends React.Component {
                 </IconButton>
                 <img src={KeepIcon} alt="KeepIcon" className="Iconpng"/>
                 <span className="gb_5d">{this.state.heading}</span> 
-                <div className="search">
-                  <div className="searchIcon">
+                <div>
+                  <Search handleSearchNote={this.props.handleSearch}/>
+                  {/* <div className="searchIcon">
                     <SearchIcon />
                   </div>
                   <InputBase
                     placeholder="Search"
                     className="inputInput"
                     inputProps={{ 'aria-label': 'search' }}
-                  />
+                  /> */}
                 </div>
                 <div className="grow"/>
                 <div className="sectionDesktop">
@@ -108,7 +112,9 @@ class Header extends React.Component {
                   </IconButton>
                   <IconButton>
                     <Badge color="black">
-                      < ViewAgendaOutlinedIcon/>
+                      {this.props.view === true ?<ViewAgendaOutlinedIcon onClick={()=>this.props.gridView()}/>:
+                      <AppsOutlinedIcon onClick={()=>this.props.gridView()}/> }
+                      
                     </Badge>
                   </IconButton>
                   <IconButton
@@ -126,7 +132,7 @@ class Header extends React.Component {
                   <IconButton
                     color="black"
                   >
-                    <Avatar>H</Avatar>
+                    <Avatar>L</Avatar>
                   </IconButton>
                </div>
               </Toolbar>
@@ -135,7 +141,8 @@ class Header extends React.Component {
             drawerOpen={this.handleDrawerOpen} 
             drawerClose={this.handleDrawerClose} 
             onChange={this.onSelection} 
-            selectedRoute={this.state.heading} />
+            selectedRoute={this.state.heading} 
+            />
           </div>
          );
     }

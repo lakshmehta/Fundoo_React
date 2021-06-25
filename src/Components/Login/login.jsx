@@ -11,7 +11,9 @@ const regpass=/^(?=.*\d)(?=.*[a-z])(?=.*[a-z])(?=.*[a-zA-Z!#$%&? "])[a-zA-Z0-9!#
 
 
 
-
+const userNameRef = React.createRef();
+const passwordRef =React.createRef();
+const sumbitRef = React.createRef();
 class Login extends Component {
     constructor(props){
         super(props)
@@ -21,9 +23,32 @@ class Login extends Component {
             emailerror:"",
             passworderror:""
         }
+       
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         // this.handleChangePassword = this.handleChangePassword.bind(this);
         //this.onClick = this.onClick(this)
+    }
+    // componentDidMount(){
+    //   userNameRef.current.focus();
+     
+    // }
+    nameKeyPress(event){
+      if(event.charCode === 13){
+        event.preventDefault()
+        passwordRef.current.focus();
+      }
+    }
+    passwordKeyPress(event){
+      if(event.charCode === 13){
+        event.preventDefault()
+        sumbitRef.current.focus();
+      }
+    }
+    sumbitKeyPress(event){
+      if(event.charCode === 13){
+        event.preventDefault();
+        this.onSubmitClick();
+      }
     }
     handleChangeEmail(event){
       this.setState({ email: event })
@@ -92,14 +117,30 @@ class Login extends Component {
                         Use your Fundoo Account
                     </span>
                     <div>
-                        <TextField value={this.state.email} 
-                        size="small" className="input" label="Email" 
-                        placeholder="Email or Phone" variant="outlined" 
+                        <TextField  
+                        inputRef={userNameRef}   
+                        onKeyPress={this.nameKeyPress} 
+                        value={this.state.email} 
+                        size="small" 
+                        className="input" 
+                        label="Email" 
+                        placeholder="Email or Phone" 
+                        variant="outlined" 
                         onChange={(event)=>this.handleChangeEmail(event.target.value)} helperText={this.state.emailerror} 
-                        error={this.state.emailerror}></TextField>
-                        <TextField  size="small" value={this.state.password} className="input" label="Password" 
-                        placeholder="Password" variant="outlined" onChange={(event)=> this.handleChangePassword(event.target.value)} 
-                        helperText={this.state.passworderror} error={this.state.passworderror}></TextField>
+                        error={this.state.emailerror}/>
+                        <TextField 
+                        inputRef={passwordRef} 
+                        onKeyPress={this.passwordKeyPress} 
+                        size="small" 
+                        value={this.state.password} 
+                        className="input" 
+                        label="password" 
+                        type="password"
+                        placeholder="Password" 
+                        variant="outlined" 
+                        onChange={(event)=> this.handleChangePassword(event.target.value)} 
+                        helperText={this.state.passworderror} 
+                        error={this.state.passworderror}></TextField>
                     </div>
                     <div className="btn-text">
                         <p className="help-text">Not your computer? Use guest mode to sign in privately.<br></br>
@@ -110,7 +151,7 @@ class Login extends Component {
                             Create account
                         </div>
                     </Link>
-                    <button className="login" onClick={ ()=> this.onSubmitClick()}>Login</button>
+                    <button className="login" ref={sumbitRef} onPress={this.sumbitKeyPress} onClick={()=>this.onSubmitClick()}>Login</button>
                 </div>
             </div>
          );

@@ -21,8 +21,10 @@ class Note extends Component {
                 this.setState({
                     notes:result.data.data.data
                 }) 
-
                 console.log("notes",this.state.notes)
+                this.onTrigerSearch(this.state.notes)
+                // this.props.filterSearchNote(this.state.notes)
+                
             }).catch(error =>{
                 this.setState({
                     open: true
@@ -31,19 +33,17 @@ class Note extends Component {
             })
         
     };
-    // shouldComponentUpdate(nextProps, nextState){
-    //     if(this.state.notes != nextState.notes){
-    //         return true
-    //     }
-    //     return false;
-    // }
+    onTrigerSearch=(data)=>{
+        this.props.searchNote(data)
+    }
     
     render() { 
         console.log(this.state.notes,"Notes")
+        console.log(this.props.gridView,"grid view");
         return (
             <div>
                 <TakeNote getAll={this.getAllNotes} NotesArray={this.state.notes}/>
-                <DisplayNote  NotesArray={this.state.notes} getNote={this.getAllNotes} render={this.props.render}/>
+                <DisplayNote view={this.props.gridView} NotesArray={this.state.notes} getNote={this.getAllNotes} render={this.props.render}/>
             </div>
           );
     }
